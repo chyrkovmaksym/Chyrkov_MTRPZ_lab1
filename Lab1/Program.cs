@@ -94,7 +94,7 @@ void SolveQuadraticEquation(double a, double b, double c)
     }
 }
 
-void main()
+void Main()
 {
     List<double> coeff;
     Console.WriteLine("Choose application mode: 1 - interactive, 2 - not interactive (file mode)");
@@ -120,8 +120,8 @@ void main()
     if (Console.ReadKey().Key == ConsoleKey.Enter)
     {
         Console.Write("\n\n");
-        main();
+        Main();
     }
 }
 
-main();
+Main();
