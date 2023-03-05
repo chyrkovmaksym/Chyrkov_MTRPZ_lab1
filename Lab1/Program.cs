@@ -57,13 +57,70 @@ List<double> GetValuesFromConsole()
     return values;
 }
 
+string GetEquasion(double a, double b, double c)
+{
+    return $"Equation is: ({a.ToString("0.0")}) x^2 + ({b.ToString("0.0")}) x + ({c.ToString("0.0")}) = 0";
+}
+
+void SolveQuadraticEquation(double a, double b, double c)
+{
+    double discriminant = b * b - 4 * a * c;
+
+    if (a == 0)
+    {
+        Console.WriteLine("a cannot be 0");
+    }
+    else if (discriminant < 0)
+    {
+        Console.WriteLine("No real roots");
+    }
+    else
+    {
+        double root1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
+
+        int roots = discriminant == 0 ? 1 : 2;
+        if (discriminant == 0)
+        {
+            Console.WriteLine($"There is 1 root: ");
+            Console.WriteLine($"x1: {root1}");
+        }
+        else
+        {
+            Console.WriteLine($"There are 2 roots: ");
+            Console.WriteLine($"x1: {root1}");
+            Console.WriteLine($"x2: {root2}");
+        }
+    }
+}
 
 void main()
 {
-    List<double> coeff = GetValuesFromConsole();
-    for(int i = 0; i < coeff.Count; i++)
+    List<double> coeff;
+    Console.WriteLine("Choose application mode: 1 - interactive, 2 - not interactive (file mode)");
+    switch (Console.ReadLine())
     {
-        Console.WriteLine(coeff[i]);
+        case "1": { coeff = GetValuesFromConsole(); break; }
+        case "2": { coeff = GetValuesFromFile(filePath); break; }
+        default:
+            {
+                main();
+                return;
+            }
+    }
+    if (coeff == null)
+    {
+        Console.WriteLine("Check your file");
+        return;
+    }
+    double a = coeff[0], b = coeff[1], c = coeff[2];
+    Console.WriteLine(GetEquasion(a, b, c));
+    SolveQuadraticEquation(a, b, c);
+    Console.WriteLine("\nClick 'Enter' to restart, any other key to end");
+    if (Console.ReadKey().Key == ConsoleKey.Enter)
+    {
+        Console.Write("\n\n");
+        main();
     }
 }
 
